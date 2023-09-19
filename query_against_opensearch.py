@@ -46,7 +46,6 @@ def get_embedding(body):
 
 def answer_query(user_input):
     userQuery = user_input
-
     userQueryBody = json.dumps({"inputText": userQuery})
     userVectors = get_embedding(userQueryBody)
 
