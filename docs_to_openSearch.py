@@ -39,7 +39,7 @@ client = OpenSearch(
 response = client.indices.get("hp-final")
 print(json.dumps(response, indent=2))
 
-loader = PyPDFLoader("harrypotter.pdf")
+loader = PyPDFLoader("PDF NAME")
 documents = loader.load()
 
 text_splitter = RecursiveCharacterTextSplitter(
