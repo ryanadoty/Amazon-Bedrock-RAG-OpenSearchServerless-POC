@@ -36,9 +36,6 @@ client = OpenSearch(
     pool_maxsize=20
 )
 
-response = client.indices.get("hp-final")
-print(json.dumps(response, indent=2))
-
 loader = PyPDFLoader("PDF NAME")
 documents = loader.load()
 
