@@ -13,6 +13,8 @@ import numpy as np
 from langchain.text_splitter import CharacterTextSplitter, RecursiveCharacterTextSplitter
 from langchain.document_loaders import PyPDFLoader, PyPDFDirectoryLoader
 from IPython.display import display_markdown, Markdown, clear_output
+
+# loading in text data
 load_dotenv()
 
 # bedrock client
@@ -56,6 +58,11 @@ print(f'Average length among {len(doc)} documents (after split) is {avg_char_cou
 
 
 def get_embedding(body):
+    """
+    This function is used to generate the embeddings for a specific chunk of text
+    :param body: This is the example content passed in to generate an embedding
+    :return: A vector containing the embeddings of the passed in content
+    """
     modelId = 'amazon.titan-e1t-medium'
     accept = 'application/json'
     contentType = 'application/json'
@@ -66,6 +73,13 @@ def get_embedding(body):
 
 
 def indexDoc(client, vectors, text):
+    """
+    This function indexing the documents and vectors into Amazon OpenSearch Serverless.
+    :param client: The instatiation of your OpenSearch Serverless instance.
+    :param vectors: The vector you generated with the get_embeddings function that is going to be indexed.
+    :param text: The actual text of the document you are storing along with the vector of that text.
+    :return: The confirmation that the document was indexed successfully.
+    """
     indexDocument = {
         'vectors': vectors,
         'text': text
@@ -80,17 +94,15 @@ def indexDoc(client, vectors, text):
     )
     return response
 
-
+# The process of iterating through each chunk of the document you are trying to index, and generate embeddings for.
 for i in doc:
+    # The text data of each chunk
     exampleContent = i.page_content
-
+    # Generating the embeddings for each chunk of text data
     exampleInput = json.dumps({"inputText": exampleContent})
     exampleVectors = get_embedding(exampleInput)
-
-
+    # setting the text data as the text variable, and generated vector to a vector variable
     text = exampleContent
     vectors = exampleVectors
-    print(vectors)
-    print(text)
+    # calling the indexDoc function, passing in the OpenSearch Client, the created vector, and corresponding text data
     indexDoc(client, vectors, text)
-
