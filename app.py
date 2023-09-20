@@ -13,24 +13,23 @@ def main():
     if "past" not in st.session_state:
         st.session_state["past"] = []
 
+    # col1 = st.column([10], gap="medium")
+    # with col1:
+    with st.container():
+        input_text = st.text_input("Ask a question:",
+                                   "",
+                                   key="query_text",
+                                   placeholder="What can I help you with?",
+                                   on_change=clear_text()
+                                   )
+        user_input = st.session_state["query"]
 
-    col1, col2 = st.columns([8, 2], gap="medium")
-    with col1:
-        with st.container():
-            input_text = st.text_input("Ask a question:",
-                                       "",
-                                       key="query_text",
-                                       placeholder="What can I help you with?",
-                                       on_change=clear_text()
-                                       )
-            user_input = st.session_state["query"]
+        if user_input:
+            st.session_state.past.append(user_input)
+            st.write(answer_query(user_input))
 
-            if user_input:
-                st.session_state.past.append(user_input)
-                st.write(answer_query(user_input))
-        with col2:
-            with st.container():
-                st.button("clear chat", on_click=clear_session)
+    with st.container():
+        st.button("clear chat", on_click=clear_session)
 
 
 def clear_text():
