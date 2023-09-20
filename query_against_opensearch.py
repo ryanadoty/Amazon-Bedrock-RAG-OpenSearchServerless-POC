@@ -13,17 +13,20 @@ import numpy as np
 from langchain.text_splitter import CharacterTextSplitter, RecursiveCharacterTextSplitter
 from langchain.document_loaders import PyPDFLoader, PyPDFDirectoryLoader
 from IPython.display import display_markdown, Markdown, clear_output
+
+# loading in variables from .env file
 load_dotenv()
 
-boto3.setup_default_session(profile_name='bedrock')
+# instantiating the Bedrock client, and passing in the CLI profile
+boto3.setup_default_session(profile_name=os.getenv('profile_name'))
 bedrock = boto3.client('bedrock', 'us-east-1', endpoint_url='https://bedrock.us-east-1.amazonaws.com')
-opensearch = boto3.client("opensearchserverless")
 
-# OpenSearch Client
+# instantiating the OpenSearch client, and passing in the CLI profile
+opensearch = boto3.client("opensearchserverless")
 host = os.getenv('opensearch_host')  # cluster endpoint, for example: my-test-domain.us-east-1.aoss.amazonaws.com
 region = 'us-east-1'
 service = 'aoss'
-credentials = boto3.Session(profile_name='bedrock').get_credentials()
+credentials = boto3.Session(profile_name=os.getenv('profile_name')).get_credentials()
 auth = AWSV4SignerAuth(credentials, region, service)
 
 client = OpenSearch(
@@ -36,10 +39,18 @@ client = OpenSearch(
 )
 
 def get_embedding(body):
+    """
+    This function is used to generate the embeddings for each question the user submits.
+    :param body: This is the question that is passed in to generate an embedding
+    :return: A vector containing the embeddings of the passed in content
+    """
+    # defining the embeddings model
     modelId = 'amazon.titan-e1t-medium'
     accept = 'application/json'
     contentType = 'application/json'
+    # invoking the embedding model
     response = bedrock.invoke_model(body=body, modelId=modelId, accept=accept, contentType=contentType)
+    # reading in the specific embedding
     response_body = json.loads(response.get('body').read())
     embedding = response_body.get('embedding')
     return embedding

@@ -18,7 +18,7 @@ from IPython.display import display_markdown, Markdown, clear_output
 load_dotenv()
 
 # bedrock client
-boto3.setup_default_session(profile_name='bedrock')
+boto3.setup_default_session(profile_name=os.getenv('profile_name'))
 bedrock = boto3.client('bedrock', 'us-east-1', endpoint_url='https://bedrock.us-east-1.amazonaws.com')
 opensearch = boto3.client("opensearchserverless")
 
@@ -26,7 +26,7 @@ opensearch = boto3.client("opensearchserverless")
 host = os.getenv('opensearch_host')  # cluster endpoint, for example: my-test-domain.us-east-1.aoss.amazonaws.com
 region = 'us-east-1'
 service = 'aoss'
-credentials = boto3.Session(profile_name='bedrock').get_credentials()
+credentials = boto3.Session(profile_name=os.getenv('profile_name')).get_credentials()
 auth = AWSV4SignerAuth(credentials, region, service)
 
 client = OpenSearch(
@@ -55,7 +55,6 @@ avg_char_count_post = avg_doc_length(doc)
 print(f'Average length among {len(documents)} documents loaded is {avg_char_count_pre} characters.')
 print(f'After the split we have {len(doc)} documents more than the original {len(documents)}.')
 print(f'Average length among {len(doc)} documents (after split) is {avg_char_count_post} characters.')
-
 
 def get_embedding(body):
     """
