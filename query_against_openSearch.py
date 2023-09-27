@@ -86,7 +86,7 @@ def answer_query(user_input):
     # performing the search on OpenSearch passing in the query parameters constructed above
     response = client.search(
         body=query,
-        index=os.getenv("index_name")
+        index=os.getenv("vector_index_name")
     )
 
     # Format Json responses into text

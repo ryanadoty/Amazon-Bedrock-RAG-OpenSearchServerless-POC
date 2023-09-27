@@ -1,5 +1,5 @@
 import streamlit as st
-from query_against_opensearch import answer_query
+from query_against_openSearch import answer_query
 
 # Header/Title of streamlit app
 st.markdown("<h1 style='text-align: center; color: red;'>RAG with OpenSearch and Custom Embeddings</h1>",

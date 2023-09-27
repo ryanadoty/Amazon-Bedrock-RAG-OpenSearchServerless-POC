@@ -87,13 +87,13 @@ def indexDoc(client, vectors, text):
     """
     # TODO: You can add more metadata fields if you wanted to!
     indexDocument = {
-        'vectors': vectors,
+        os.getenv("vector_field_name"): vectors,
         'text': text
 
     }
     # Configuring the specific index
     response = client.index(
-        index=os.getenv("index_name"),
+        index=os.getenv("vector_index_name"),
         body=indexDocument,
         refresh=False
     )
