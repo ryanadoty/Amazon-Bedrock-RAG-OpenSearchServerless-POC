@@ -1,18 +1,10 @@
 import boto3
 import json
-import botocore
 from dotenv import load_dotenv
 import os
-import sys
-from opensearchpy import OpenSearch
 from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
-import time
-from langchain.embeddings import BedrockEmbeddings
-from langchain.llms.bedrock import Bedrock
-import numpy as np
 from langchain.text_splitter import CharacterTextSplitter, RecursiveCharacterTextSplitter
 from langchain.document_loaders import PyPDFLoader, PyPDFDirectoryLoader
-from IPython.display import display_markdown, Markdown, clear_output
 
 # loading in environment variables
 load_dotenv()

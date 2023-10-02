@@ -1,18 +1,8 @@
 import boto3
 import json
-import botocore
 from dotenv import load_dotenv
 import os
-import sys
-from opensearchpy import OpenSearch
 from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
-import time
-from langchain.embeddings import BedrockEmbeddings
-from langchain.llms.bedrock import Bedrock
-import numpy as np
-from langchain.text_splitter import CharacterTextSplitter, RecursiveCharacterTextSplitter
-from langchain.document_loaders import PyPDFLoader, PyPDFDirectoryLoader
-from IPython.display import display_markdown, Markdown, clear_output
 
 # loading in variables from .env file
 load_dotenv()
@@ -106,7 +96,7 @@ def answer_query(user_input):
     Format the output in human readable format - use paragraphs and bullet lists when applicable
     Answer in detail with no preamble
     If you are unable to answer accurately, please say so.
-    Please mention the sources of where the answers came from!
+    Please mention the sources of where the answers came from by referring to page numbers, specific books and chapters!
 
     Question: {userQuery}
 
