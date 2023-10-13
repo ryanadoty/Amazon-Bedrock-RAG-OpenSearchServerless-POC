@@ -62,7 +62,7 @@ Now that we have successfully cloned the repo, created and activated the virtual
 Vector Search collection.
 
 To create our Amazon OpenSearch Vector Search Collection we will:
-1. Go to the Amazon OpenSearch Service homepage within the AWS console and on the left-hand side we will select "Collections" under the "Serverless" drop down ![Alt text](images/Amazon_OpenSearch_Homepage.png "Amazon OpenSearch Serverless Homepage")
+1. Go to the Amazon OpenSearch Service homepage within the AWS console and on the left-hand side we will select "Collections" under the "Serverless" drop down ![Alt text](images/Amazon_OpenSearch_Homepage_new.png "Amazon OpenSearch Serverless Homepage")
 2. We will then click on "Create collection" ![Alt text](images/create_collection.png "Amazon OpenSearch Create Collection")
 3. On the "Configure collection settings" page, we will need to input a "Collection name", select the "Collection type": "Vector search", in the "Security" section select the option "Standard create", and select your preferred "Encryption" settings: ![Alt text](images/Configure_collection_settings_part_1.png "Amazon OpenSearch Serverless Collection Settings Part-1")
 4. On the same "Configure collection settings" page, at the bottom we will select our "Network access settings" either "Public" or "VPC", and give access to the OpenSearch Endpoint and/or OpenSearch Dashboards and select next ![Alt text](images/configure_collection_settings_part_2.png "Amazon OpenSearch Create Collection Part 2")
