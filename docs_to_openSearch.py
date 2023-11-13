@@ -32,7 +32,7 @@ client = OpenSearch(
 
 # loading in PDF, can use PyPDFDirectoryLoader if you want to load in a directory of PDFs
 # TODO: Change PDF loader and chunker
-loader = PyPDFLoader("path/to/PDF")
+loader = PyPDFLoader("harrypotter.pdf")
 documents = loader.load()
 
 # implementing a text splitter based on number of characters
@@ -61,7 +61,7 @@ def get_embedding(body):
     :param body: This is the example content passed in to generate an embedding
     :return: A vector containing the embeddings of the passed in content
     """
-    modelId = 'amazon.titan-e1t-medium'
+    modelId = 'amazon.titan-embed-text-v1'
     accept = 'application/json'
     contentType = 'application/json'
     response = bedrock.invoke_model(body=body, modelId=modelId, accept=accept, contentType=contentType)
@@ -107,3 +107,4 @@ for i in doc:
     # calling the indexDoc function, passing in the OpenSearch Client, the created vector, and corresponding text data
     # TODO: If you wanted to add metadata you would pass it in here
     indexDoc(client, vectors, text)
+    print(f"page: {i}")

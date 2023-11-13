@@ -35,7 +35,7 @@ def get_embedding(body):
     :return: A vector containing the embeddings of the passed in content
     """
     # defining the embeddings model
-    modelId = 'amazon.titan-e1t-medium'
+    modelId = 'amazon.titan-embed-text-v1'
     accept = 'application/json'
     contentType = 'application/json'
     # invoking the embedding model
