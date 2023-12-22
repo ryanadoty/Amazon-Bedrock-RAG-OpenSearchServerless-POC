@@ -81,7 +81,7 @@ def indexDoc(client, vectors, text):
     # TODO: You can add more metadata fields if you wanted to!
     indexDocument = {
         os.getenv("vector_field_name"): vectors,
-        'text': text
+        "text": text
 
     }
     # Configuring the specific index
